@@ -3,3 +3,4 @@ showndownAI/.classpath
 showndownAI/.project
 *.prefs
 showndownAI/target/
+private.properties
