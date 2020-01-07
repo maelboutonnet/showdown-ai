@@ -27,12 +27,13 @@ public class WebsocketFacade {
 
 	private final Logger LOGGER = LogManager.getLogger(getClass());
 	private WebsocketClient client;
+	private Properties prop;
 	
 	
 	public WebsocketFacade() throws URISyntaxException, IOException {
 		
 		LOGGER.info("Loading properties...");
-		Properties prop = new Properties();
+		prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("private.properties")) {
             prop.load(input);
         } catch (IOException ex) {
@@ -80,14 +81,31 @@ public class WebsocketFacade {
         }
         LOGGER.info("Login sent...");
         
-        sendMessage("|/trn "+ prop.get("bot.login").toString() + ",0,"+data.get("assertion"));
+        client.sendMessage("|/trn "+ prop.get("bot.login").toString() + ",0,"+data.get("assertion"));
 		
         LOGGER.info("Login confirmed...");
 		
 	}
 
-	public void sendMessage(String msg) {
-		client.sendMessage(msg);
+	public void sendMessage(String userName, String msg) {
+		client.sendMessage("|/msg "+userName+","+msg);
 	}
+	
+	public void sendChallenge(String userName, String format) {
+		client.sendMessage("|/challenge "+userName+","+format);
+	}
+	
+	
+	/* Methods there are for tests and building purposes */
+	
+
+	public void sendMessage(String msg) {
+		this.sendMessage(prop.getProperty("bot.opponent"), msg);
+	}
+	
+	public void sendChallenge(String format) {
+		this.sendChallenge(prop.getProperty("bot.opponent"), format);
+	}
+	
 	
 }

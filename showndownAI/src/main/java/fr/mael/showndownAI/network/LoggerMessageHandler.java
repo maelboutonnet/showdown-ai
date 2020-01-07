@@ -12,9 +12,7 @@ public class LoggerMessageHandler implements WebsocketClient.MessageHandler {
 	public void handleMessage(String message) {
 		String[] splitMessage = message.split("\\|");
 		LOGGER.info("Message received : ");
-		for (int i = 0; i < splitMessage.length; i++) {
-			LOGGER.info(splitMessage[i]);
-		}
+		LOGGER.info(message);
 		LOGGER.info("End of message");
 		
 		if ("challstr".contentEquals(splitMessage[1])) {
