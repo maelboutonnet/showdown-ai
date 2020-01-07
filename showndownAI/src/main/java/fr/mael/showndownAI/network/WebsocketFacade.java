@@ -2,6 +2,7 @@ package fr.mael.showndownAI.network;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -33,32 +35,31 @@ public class WebsocketFacade {
 	public WebsocketFacade() throws URISyntaxException, IOException {
 		
 		LOGGER.info("Loading properties...");
+		
+		loadPrivateProperties();
+		
+		LOGGER.info("Opening websocket...");
+		
+		LoggerMessageHandler messageHandler = openWebsocket();
+		
+		LOGGER.info("Challstr received...");
+		
+	    login(messageHandler);
+		
+	}
+
+	private void loadPrivateProperties() {
 		prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("private.properties")) {
             prop.load(input);
         } catch (IOException ex) {
             LOGGER.error("Error while loading properties", ex);
         }
-		
-		LOGGER.info("Opening websocket...");
-		
-		URI endpointURI = new URI("ws://sim.smogon.com:8000/showdown/websocket");
-		client = new WebsocketClient(endpointURI);
-		LoggerMessageHandler messageHandler = new LoggerMessageHandler();
-		client.addMessageHandler(messageHandler);
-		//client.sendMessage("Something");
-		int waitingCpt = 0;
-		while(messageHandler.challStrMsg == null) {
-			waitingCpt++;
-			if (waitingCpt == 1000) {
-				LOGGER.info("Waiting for challStr message");
-				waitingCpt = 0 ;
-			}
-			//we're waiting for challstr message to get to us.
-			//will allow us to log in.
-		}
-		LOGGER.info("Challstr received...");
-	    HttpPost post = new HttpPost("http://play.pokemonshowdown.com/action.php");
+	}
+
+	private void login(LoggerMessageHandler messageHandler)
+			throws UnsupportedEncodingException, IOException, ClientProtocolException {
+		HttpPost post = new HttpPost("http://play.pokemonshowdown.com/action.php");
 
         // add request parameter, form parameters
         List<NameValuePair> urlParameters = new ArrayList();
@@ -84,7 +85,25 @@ public class WebsocketFacade {
         client.sendMessage("|/trn "+ prop.get("bot.login").toString() + ",0,"+data.get("assertion"));
 		
         LOGGER.info("Login confirmed...");
-		
+	}
+
+	private LoggerMessageHandler openWebsocket() throws URISyntaxException {
+		URI endpointURI = new URI("ws://sim.smogon.com:8000/showdown/websocket");
+		client = new WebsocketClient(endpointURI);
+		LoggerMessageHandler messageHandler = new LoggerMessageHandler();
+		client.addMessageHandler(messageHandler);
+		//client.sendMessage("Something");
+		int waitingCpt = 0;
+		while(messageHandler.challStrMsg == null) {
+			waitingCpt++;
+			if (waitingCpt == 1000) {
+				LOGGER.info("Waiting for challStr message");
+				waitingCpt = 0 ;
+			}
+			//we're waiting for challstr message to get to us.
+			//will allow us to log in.
+		}
+		return messageHandler;
 	}
 
 	public void sendMessage(String userName, String msg) {
@@ -105,6 +124,10 @@ public class WebsocketFacade {
 	
 	public void sendChallenge(String format) {
 		this.sendChallenge(prop.getProperty("bot.opponent"), format);
+	}
+	
+	public void sendCommand(String command) {
+		client.sendMessage(command);
 	}
 	
 	
