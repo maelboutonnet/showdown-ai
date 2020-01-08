@@ -19,8 +19,9 @@ public class BattleThread implements Runnable {
 	@Override
 	public void run() {
 		facade.sendChallenge("[Gen 8] Unrated Random Battle");
-		try (Scanner reader = new Scanner(System.in);) {
+		try (Scanner reader = new Scanner(System.in)) {
 			// Reading from System.in
+			reader.useDelimiter("\r\n");
 			System.out.println("Enter a command: ");
 			String line = reader.next();
 			while(!"exit".equals(line)) {

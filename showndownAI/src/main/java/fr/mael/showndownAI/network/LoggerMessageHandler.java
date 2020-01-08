@@ -18,9 +18,6 @@ public class LoggerMessageHandler implements WebsocketClient.MessageHandler {
 		if ("challstr".contentEquals(splitMessage[1])) {
 			challStrMsg = splitMessage;
 		}
-		
-		
-		
 	}
 
 }

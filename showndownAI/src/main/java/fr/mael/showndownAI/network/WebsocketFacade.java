@@ -25,11 +25,15 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import fr.mael.showndownAI.battleData.Battle;
+
 public class WebsocketFacade {
 
 	private final Logger LOGGER = LogManager.getLogger(getClass());
 	private WebsocketClient client;
 	private Properties prop;
+	
+	private Battle battle;
 	
 	
 	public WebsocketFacade() throws URISyntaxException, IOException {
@@ -45,6 +49,8 @@ public class WebsocketFacade {
 		LOGGER.info("Challstr received...");
 		
 	    login(messageHandler);
+	    
+	    battle = new Battle();
 		
 	}
 
@@ -91,7 +97,7 @@ public class WebsocketFacade {
 		URI endpointURI = new URI("ws://sim.smogon.com:8000/showdown/websocket");
 		client = new WebsocketClient(endpointURI);
 		LoggerMessageHandler messageHandler = new LoggerMessageHandler();
-		client.addMessageHandler(messageHandler);
+		client.setMessageHandler(messageHandler);
 		//client.sendMessage("Something");
 		int waitingCpt = 0;
 		while(messageHandler.challStrMsg == null) {
@@ -111,6 +117,8 @@ public class WebsocketFacade {
 	}
 	
 	public void sendChallenge(String userName, String format) {
+		BattleMessageHandler battleHandler = new BattleMessageHandler(battle);
+		client.setMessageHandler(battleHandler);
 		client.sendMessage("|/challenge "+userName+","+format);
 	}
 	
@@ -127,7 +135,13 @@ public class WebsocketFacade {
 	}
 	
 	public void sendCommand(String command) {
-		client.sendMessage(command);
+		StringBuilder formattedCommand = new StringBuilder();
+		if (this.battle.id != null) {
+			formattedCommand.append(this.battle.id);
+		}
+		formattedCommand.append("|");
+		formattedCommand.append(command);
+		client.sendMessage(formattedCommand.toString());
 	}
 	
 	

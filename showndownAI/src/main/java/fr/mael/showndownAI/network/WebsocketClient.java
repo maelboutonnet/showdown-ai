@@ -72,7 +72,7 @@ public class WebsocketClient {
      *
      * @param msgHandler
      */
-    public void addMessageHandler(MessageHandler msgHandler) {
+    public void setMessageHandler(MessageHandler msgHandler) {
         this.messageHandler = msgHandler;
     }
 
