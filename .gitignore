@@ -4,3 +4,4 @@ showndownAI/.project
 *.prefs
 showndownAI/target/
 private.properties
+/showndownAI/target/classes/text_constants.txt

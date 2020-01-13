@@ -29,8 +29,7 @@ public class WebsocketClient {
 		try {
 			container.connectToServer(this, endpointURI);
 		} catch (DeploymentException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("",e);
 		}
 	}
 	
@@ -81,9 +80,10 @@ public class WebsocketClient {
      *
      * @param message
      */
-    public void sendMessage(String message) {
-    	LOGGER.debug("Sending message: " + message);
-        this.userSession.getAsyncRemote().sendText(message);
+    public void sendMessage(OutMessage outMessage, Object... params) {
+    	String msg = String.format(outMessage.preformattedMessage, params);
+    	LOGGER.debug("Sending message: " + msg);
+        this.userSession.getAsyncRemote().sendText(msg);
     }
 
     public static interface MessageHandler {

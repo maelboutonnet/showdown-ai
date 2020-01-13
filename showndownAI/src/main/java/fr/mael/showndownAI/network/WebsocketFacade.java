@@ -25,16 +25,13 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import fr.mael.showndownAI.battleData.Battle;
+import fr.mael.showndownAI.network.WebsocketClient.MessageHandler;
 
 public class WebsocketFacade {
 
 	private final Logger LOGGER = LogManager.getLogger(getClass());
 	private WebsocketClient client;
 	private Properties prop;
-	
-	private Battle battle;
-	
 	
 	public WebsocketFacade() throws URISyntaxException, IOException {
 		
@@ -44,13 +41,11 @@ public class WebsocketFacade {
 		
 		LOGGER.info("Opening websocket...");
 		
-		LoggerMessageHandler messageHandler = openWebsocket();
+		LoginMessageHandler loginHandler = openWebsocket();
 		
 		LOGGER.info("Challstr received...");
 		
-	    login(messageHandler);
-	    
-	    battle = new Battle();
+	    login(loginHandler);
 		
 	}
 
@@ -63,7 +58,7 @@ public class WebsocketFacade {
         }
 	}
 
-	private void login(LoggerMessageHandler messageHandler)
+	private void login(LoginMessageHandler messageHandler)
 			throws UnsupportedEncodingException, IOException, ClientProtocolException {
 		HttpPost post = new HttpPost("http://play.pokemonshowdown.com/action.php");
 
@@ -71,8 +66,7 @@ public class WebsocketFacade {
         List<NameValuePair> urlParameters = new ArrayList();
         urlParameters.add(new BasicNameValuePair("name", prop.get("bot.login").toString()));
         urlParameters.add(new BasicNameValuePair("pass", prop.get("bot.password").toString()));
-        urlParameters.add(new BasicNameValuePair("challstr", messageHandler.challStrMsg[2] + "|" + messageHandler.challStrMsg[3]));
-        
+        urlParameters.add(new BasicNameValuePair("challstr", messageHandler.challStrMsg));
         urlParameters.add(new BasicNameValuePair("act", "login"));
 
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
@@ -88,60 +82,46 @@ public class WebsocketFacade {
         }
         LOGGER.info("Login sent...");
         
-        client.sendMessage("|/trn "+ prop.get("bot.login").toString() + ",0,"+data.get("assertion"));
-		
+        client.sendMessage(OutMessage.CONFIRM_LOGIN, prop.get("bot.login").toString(), data.get("assertion"));
         LOGGER.info("Login confirmed...");
 	}
 
-	private LoggerMessageHandler openWebsocket() throws URISyntaxException {
+	private LoginMessageHandler openWebsocket() throws URISyntaxException {
 		URI endpointURI = new URI("ws://sim.smogon.com:8000/showdown/websocket");
 		client = new WebsocketClient(endpointURI);
-		LoggerMessageHandler messageHandler = new LoggerMessageHandler();
+		LoginMessageHandler messageHandler = new LoginMessageHandler();
 		client.setMessageHandler(messageHandler);
 		//client.sendMessage("Something");
-		int waitingCpt = 0;
 		while(messageHandler.challStrMsg == null) {
-			waitingCpt++;
-			if (waitingCpt == 1000) {
-				LOGGER.info("Waiting for challStr message");
-				waitingCpt = 0 ;
-			}
+			LOGGER.info("we're waiting for challStrMsg");
 			//we're waiting for challstr message to get to us.
 			//will allow us to log in.
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				LOGGER.error("",e);
+			}
+			
 		}
 		return messageHandler;
 	}
-
-	public void sendMessage(String userName, String msg) {
-		client.sendMessage("|/msg "+userName+","+msg);
-	}
 	
 	public void sendChallenge(String userName, String format) {
-		BattleMessageHandler battleHandler = new BattleMessageHandler(battle);
-		client.setMessageHandler(battleHandler);
-		client.sendMessage("|/challenge "+userName+","+format);
+		client.sendMessage(OutMessage.CHALLENGE, userName, format);
 	}
-	
 	
 	/* Methods there are for tests and building purposes */
-	
-
-	public void sendMessage(String msg) {
-		this.sendMessage(prop.getProperty("bot.opponent"), msg);
-	}
 	
 	public void sendChallenge(String format) {
 		this.sendChallenge(prop.getProperty("bot.opponent"), format);
 	}
 	
-	public void sendCommand(String command) {
-		StringBuilder formattedCommand = new StringBuilder();
-		if (this.battle.id != null) {
-			formattedCommand.append(this.battle.id);
-		}
-		formattedCommand.append("|");
-		formattedCommand.append(command);
-		client.sendMessage(formattedCommand.toString());
+	public void sendCommand(String battleID, String command) {
+		client.sendMessage(OutMessage.CHOOSE_ACTION, battleID, command);
+	}
+	
+	public void setMessageHandler(MessageHandler handler) {
+		client.setMessageHandler(handler);
 	}
 	
 	
