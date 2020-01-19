@@ -4,13 +4,16 @@ import java.util.List;
 
 public class Pokemon {
 	
-	String type;
-	List<Move> moves;
-	String item;
-	String ability;
-	int currentHP;
-	int maxHP;
-	StatInfo stats;
+	public String ident;
+	public String details;
+	public String condition;
+	public boolean active;
+	public Stats stats;
+	public List<String> moves;
+	public String baseAbility;
+	public String item;
+	public String pokeball;
+	public String ability;
 	
 
 }
