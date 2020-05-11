@@ -88,9 +88,8 @@ public class WebsocketFacade {
 
 	private LoginMessageHandler openWebsocket() throws URISyntaxException {
 		URI endpointURI = new URI("ws://sim.smogon.com:8000/showdown/websocket");
-		client = new WebsocketClient(endpointURI);
 		LoginMessageHandler messageHandler = new LoginMessageHandler();
-		client.setMessageHandler(messageHandler);
+		client = new WebsocketClient(endpointURI,messageHandler);
 		//client.sendMessage("Something");
 		while(messageHandler.challStrMsg == null) {
 			LOGGER.info("we're waiting for challStrMsg");
