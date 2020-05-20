@@ -3,7 +3,7 @@ package fr.mael.showndownAI;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import fr.mael.showndownAI.pokemonData.PokeApiFacade;
+import fr.mael.showndownAI.pokemonData.api.PokeApiFacade;
 
 public class Main {
 

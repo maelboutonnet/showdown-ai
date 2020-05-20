@@ -1,4 +1,4 @@
-package fr.mael.showndownAI.pokemonData;
+package fr.mael.showndownAI.pokemonData.api;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+
+import fr.mael.showndownAI.pokemonData.Move;
+import fr.mael.showndownAI.pokemonData.Pokemon;
 
 public class PokeApiFacade {
 
@@ -70,7 +73,6 @@ public class PokeApiFacade {
 		} catch (IOException | JsonSyntaxException e) {
 			LOGGER.error("", e);
 		}
-
 		return null;
 	}
 
