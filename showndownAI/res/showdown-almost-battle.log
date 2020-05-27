@@ -1,0 +1,58 @@
+Message received : 
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+|init|battle
+|title|Archibald Kapelput vs. ArakBuildsABrain
+|j|☆Archibald Kapelput
+
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+|request|
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+
+|j|☆ArakBuildsABrain
+
+20:36:55.116 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:36:55.984 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:36:55.984 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+
+|player|p1|Archibald Kapelput|266|
+
+20:36:55.984 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:36:56.126 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:36:56.127 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+|request|{"active":[{"moves":[{"move":"Close Combat","id":"closecombat","pp":8,"maxpp":8,"target":"normal","disabled":false},{"move":"Swords Dance","id":"swordsdance","pp":32,"maxpp":32,"target":"self","disabled":false},{"move":"Iron Head","id":"ironhead","pp":24,"maxpp":24,"target":"normal","disabled":false},{"move":"Crunch","id":"crunch","pp":24,"maxpp":24,"target":"normal","disabled":false}],"canDynamax":true,"maxMoves":{"maxMoves":[{"move":"maxknuckle","target":"adjacentFoe"},{"move":"maxguard","target":"self"},{"move":"maxsteelspike","target":"adjacentFoe"},{"move":"maxdarkness","target":"adjacentFoe"}]}}],"side":{"name":"Archibald Kapelput","id":"p1","pokemon":[{"ident":"p1: Perrserker","details":"Perrserker, L84, M","condition":"255/255","active":true,"stats":{"atk":233,"def":216,"spa":132,"spd":149,"spe":132},"moves":["closecombat","swordsdance","ironhead","crunch"],"baseAbility":"toughclaws","item":"focussash","pokeball":"pokeball","ability":"toughclaws"},{"ident":"p1: Mr. Mime","details":"Mr. Mime, L84, M","condition":"204/204","active":false,"stats":{"atk":80,"def":157,"spa":216,"spd":250,"spe":199},"moves":["nastyplot","dazzlinggleam","psychic","focusblast"],"baseAbility":"filter","item":"lifeorb","pokeball":"pokeball","ability":"filter"},{"ident":"p1: Hitmontop","details":"Hitmontop, L84, M","condition":"221/221","active":false,"stats":{"atk":208,"def":208,"spa":107,"spd":233,"spe":166},"moves":["rapidspin","machpunch","suckerpunch","closecombat"],"baseAbility":"technician","item":"assaultvest","pokeball":"pokeball","ability":"technician"},{"ident":"p1: Drapion","details":"Drapion, L82, F","condition":"249/249","active":false,"stats":{"atk":195,"def":228,"spa":146,"spd":170,"spe":203},"moves":["poisonjab","swordsdance","knockoff","earthquake"],"baseAbility":"sniper","item":"lifeorb","pokeball":"pokeball","ability":"sniper"},{"ident":"p1: Toxtricity","details":"Toxtricity, L80, F","condition":"251/251","active":false,"stats":{"atk":161,"def":158,"spa":229,"spd":158,"spe":166},"moves":["shiftgear","boomburst","overdrive","sludgewave"],"baseAbility":"punkrock","item":"throatspray","pokeball":"pokeball","ability":"punkrock"},{"ident":"p1: Bewear","details":"Bewear, L84, M","condition":"339/339","active":false,"stats":{"atk":258,"def":183,"spa":141,"spd":149,"spe":149},"moves":["darkestlariat","closecombat","doubleedge","icepunch"],"baseAbility":"fluffy","item":"choiceband","pokeball":"pokeball","ability":"fluffy"}]},"rqid":2}
+20:36:56.127 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:36:56.127 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:36:56.127 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+
+|player|p2|ArakBuildsABrain|scientist-gen4dp|
+|teamsize|p1|6
+|teamsize|p2|6
+|gametype|singles
+|gen|8
+|tier|[Gen 8] Unrated Random Battle
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|
+|start
+|switch|p1a: Perrserker|Perrserker, L84, M|255/255
+|switch|p2a: Beheeyem|Beheeyem, L84, F|100/100
+|turn|1
+
+20:36:56.127 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:40:46.749 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:40:46.750 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+
+|-message|ArakBuildsABrain forfeited.
+
+20:40:46.750 [Grizzly(1)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
+20:40:46.751 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - Message received : 
+20:40:46.752 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - >battle-gen8unratedrandombattle-1041970117
+
+|
+|win|Archibald Kapelput
+
+20:40:46.752 [Grizzly(2)] INFO  fr.mael.showndownAI.network.LoggerMessageHandler - End of message
